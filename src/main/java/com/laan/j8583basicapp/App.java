@@ -52,16 +52,17 @@ public class App {
     }
 
     private static void readIsoMessage(byte[] messageStream) throws Exception {
-        MessageFactory<IsoMessage> recMessageFactory = ConfigParser.createFromClasspathConfig("fields.xml");
+        // create message factory with data element specification
+        MessageFactory<IsoMessage> messageFactory = ConfigParser.createFromClasspathConfig("fields.xml");
 
         // reading ISO8583 message came through TCP/IP connection. So the message is coming as a byte stream
-        IsoMessage receivedIsoMessage = recMessageFactory.parseMessage(messageStream, HEADER.length());
+        IsoMessage receivedIsoMessage = messageFactory.parseMessage(messageStream, HEADER.length());
 
         System.out.println("Received ISO8583 message:\n" + new String(receivedIsoMessage.writeData()));
 
         System.out.println(receivedIsoMessage.getIsoHeader());
         printIsoField(receivedIsoMessage, 2);
-        printIsoField(receivedIsoMessage, 14);
+        printIsoField(receivedIsoMessage, 4);
         printIsoField(receivedIsoMessage, 120);
 
     }
