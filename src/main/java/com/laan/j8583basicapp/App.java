@@ -58,11 +58,14 @@ public class App {
         // reading ISO8583 message came through TCP/IP connection. So the message is coming as a byte stream
         IsoMessage receivedIsoMessage = messageFactory.parseMessage(messageStream, HEADER.length());
 
-        System.out.println("Received ISO8583 message:\n" + new String(receivedIsoMessage.writeData()));
+        System.out.println("\nReceived ISO8583 message:\n" + new String(receivedIsoMessage.writeData()));
 
-        System.out.println(receivedIsoMessage.getIsoHeader());
+        System.out.println("\nHeader: " + receivedIsoMessage.getIsoHeader());
+        System.out.println("Data Elements\n-------------");
         printIsoField(receivedIsoMessage, 2);
         printIsoField(receivedIsoMessage, 4);
+        printIsoField(receivedIsoMessage, 14);
+        printIsoField(receivedIsoMessage, 37);
         printIsoField(receivedIsoMessage, 120);
 
     }
